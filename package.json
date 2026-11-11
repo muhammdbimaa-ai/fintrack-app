@@ -1,0 +1,29 @@
+{
+  "name": "fintrack-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FinTrack — aplikasi catatan keuangan harian & tagihan wajib, 100% offline.",
+  "license": "MIT",
+  "scripts": {
+    "serve": "http-server www -p 4173 -c-1",
+    "cap:sync": "cap sync",
+    "cap:add:android": "cap add android",
+    "cap:add:ios": "cap add ios",
+    "android": "cap open android",
+    "ios": "cap open ios",
+    "assets": "capacitor-assets generate --iconBackgroundColor \"#5b4bf5\" --splashBackgroundColor \"#f6f5fb\""
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/ios": "^8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

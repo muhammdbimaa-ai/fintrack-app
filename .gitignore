@@ -1,0 +1,19 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+dist/
+
+# Jangan pernah commit keystore atau file environment
+*.jks
+*.keystore
+.env
+.env.*
+
+# Generated native projects / build output
+android/.gradle/
+android/app/build/
+android/build/
+ios/App/Pods/
+ios/App/build/
+ios/DerivedData/

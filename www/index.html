@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <title>FinTrack — Catatan Keuangan Harian & Wajib</title>
+  <meta name="description" content="FinTrack adalah aplikasi catatan keuangan harian dan pengeluaran wajib bulanan yang cepat, rapi, dan 100% offline." />
+  <meta name="theme-color" content="#5b4bf5" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FinTrack" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="preload" href="./fonts/PlusJakartaSans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <main id="view" class="view" role="main" aria-live="polite"></main>
+
+    <nav class="bottom-nav" aria-label="Navigasi utama">
+      <div class="nav-brand">
+        <div class="nav-brand-logo" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 8V6.8A2.8 2.8 0 0 0 17.2 4H5.8A2.8 2.8 0 0 0 3 6.8v10.4A2.8 2.8 0 0 0 5.8 20h11.4a2.8 2.8 0 0 0 2.8-2.8V16" />
+            <path d="M16 8h5v8h-5a4 4 0 0 1 0-8z" />
+            <path d="M17.5 12h.01" />
+          </svg>
+        </div>
+        <div class="nav-brand-name">FinTrack<small>Daily expense tracker</small></div>
+      </div>
+
+      <button class="nav-item is-active" data-route="home" aria-current="page">
+        <span class="nav-ico" data-nav-icon="home"></span><span>Beranda</span>
+      </button>
+      <button class="nav-item" data-route="history">
+        <span class="nav-ico" data-nav-icon="receipt"></span><span>Riwayat</span>
+      </button>
+      <button class="nav-item" data-route="bills">
+        <span class="nav-ico" data-nav-icon="calendar"></span><span>Tagihan</span>
+      </button>
+      <button class="nav-item" data-route="plan">
+        <span class="nav-ico" data-nav-icon="target"></span><span>Rencana</span>
+      </button>
+      <button class="nav-item" data-route="settings">
+        <span class="nav-ico" data-nav-icon="settings"></span><span>Atur</span>
+      </button>
+
+      <div class="nav-fab-slot">
+        <button class="side-cta" id="sideCta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Catat Transaksi
+        </button>
+        <div class="nav-note">100% offline · data disimpan lokal<br/>FinTrack v1.0.0</div>
+      </div>
+    </nav>
+
+    <button class="fab" id="fab" aria-label="Tambah transaksi">
+      <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <noscript>
+    <div style="padding:32px;text-align:center;font-family:sans-serif">
+      FinTrack membutuhkan JavaScript untuk berjalan. Aktifkan JavaScript di browser kamu.
+    </div>
+  </noscript>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/store.js"></script>
+  <script src="./js/charts.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/screens.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

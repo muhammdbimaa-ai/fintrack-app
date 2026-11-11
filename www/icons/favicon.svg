@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="FinTrack">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="52%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#c026d3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#2e1065" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <circle cx="412" cy="92" r="190" fill="url(#glow)"/>
+  <circle cx="86" cy="452" r="150" fill="#f472b6" opacity=".18"/>
+  <g filter="url(#shadow)" transform="translate(103 142) scale(13.1)" fill="none" stroke="#ffffff" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 8V6.8A2.8 2.8 0 0 0 17.2 4H5.8A2.8 2.8 0 0 0 3 6.8v10.4A2.8 2.8 0 0 0 5.8 20h11.4a2.8 2.8 0 0 0 2.8-2.8V16"/>
+    <path d="M16 8h5v8h-5a4 4 0 0 1 0-8z"/>
+    <path d="M17.5 12h.01"/>
+  </g>
+  <g transform="translate(345 330)">
+    <circle cx="0" cy="0" r="66" fill="url(#coin)" stroke="#ffffff" stroke-width="9"/>
+    <text x="1" y="3" text-anchor="middle" dominant-baseline="central" fill="#7c2d12" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="800" letter-spacing="-2">Rp</text>
+  </g>
+</svg>
