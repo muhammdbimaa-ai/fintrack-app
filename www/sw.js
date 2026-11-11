@@ -1,5 +1,5 @@
 /* FinTrack service worker — offline-first PWA */
-const CACHE = 'fintrack-v1.0.2';
+const CACHE = 'fintrack-v1.0.3';
 const ASSETS = [
   './',
   './index.html',
