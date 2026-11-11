@@ -338,7 +338,7 @@ window.Store = (function () {
     const incomeTx = txs.filter((t) => t.type === 'income');
     const expenseTx = txs.filter((t) => t.type === 'expense');
     const billTx = expenseTx.filter((t) => t.billId && t.billMonth === month);
-    const nonBillTx = expenseTx.filter((t) => !(t.billId && t.billMonth === month));
+    const nonBillTx = expenseTx.filter((t) => !(t.billId && t.billMonth === month) && !t.goalId);
 
     const income = sum(incomeTx);
     const expenseTotal = sum(expenseTx);
@@ -351,12 +351,18 @@ window.Store = (function () {
     const fixedPaid = paidBills.reduce((s, b) => s + U.num(b.amount), 0);
     const fixedUnpaid = Math.max(0, fixedTotal - fixedPaid);
 
-    const savings = state.goals.reduce(
-      (s, g) => s + (g.contributions || []).filter((c) => U.monthKeyOf(c.date) === month).reduce((a, c) => a + U.num(c.amount), 0),
-      0
-    );
+    // Tabungan dihitung dari transaksi setoran target (goalId) agar total saldo berkurang,
+    // bukan dari kontribusi terpisah (menghindari double count).
+    const goalTx = txs.filter((t) => t.goalId);
+    const savings = goalTx
+      .filter((t) => t.type === 'expense')
+      .reduce((s, t) => s + U.num(t.amount), 0);
+    const goalWithdraw = goalTx
+      .filter((t) => t.type === 'income')
+      .reduce((s, t) => s + U.num(t.amount), 0);
+    const savingsNet = savings - goalWithdraw;
 
-    const discretionary = income - dailyExpense - fixedTotal - savings;
+    const discretionary = income - dailyExpense - fixedTotal - savingsNet;
     const dailySeries = [];
     const days = U.daysInMonth(month);
     for (let d = 1; d <= days; d++) {
@@ -673,7 +679,7 @@ window.Store = (function () {
     return true;
   };
 
-  const adjustGoal = (id, amount, note = '') => {
+  const adjustGoal = (id, amount, note = '', walletId = null) => {
     const goal = state.goals.find((g) => g.id === id);
     if (!goal) return false;
     const amt = U.num(amount);
@@ -681,6 +687,35 @@ window.Store = (function () {
     goal.contributions = goal.contributions || [];
     goal.contributions.push({ amount: amt, date: U.todayISO(), note });
     goal.saved = goal.contributions.reduce((s, c) => s + U.num(c.amount), 0);
+
+    const wid = walletId || (state.wallets[0] && state.wallets[0].id);
+    if (wid) {
+      if (amt > 0) {
+        state.transactions.unshift({
+          id: U.uid('tx'),
+          createdAt: Date.now(),
+          type: 'expense',
+          amount: amt,
+          categoryId: 'cat_expense_other',
+          walletId: wid,
+          date: U.todayISO(),
+          note: (note && note.trim()) || `Setoran target: ${goal.name}`,
+          goalId: goal.id,
+        });
+      } else {
+        state.transactions.unshift({
+          id: U.uid('tx'),
+          createdAt: Date.now(),
+          type: 'income',
+          amount: Math.abs(amt),
+          categoryId: 'cat_income_other',
+          walletId: wid,
+          date: U.todayISO(),
+          note: (note && note.trim()) || `Penarikan target: ${goal.name}`,
+          goalId: goal.id,
+        });
+      }
+    }
     commit();
     return true;
   };

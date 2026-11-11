@@ -956,6 +956,12 @@ window.UI = (function () {
           ${[100000, 250000, 500000, 1000000].map((a) => `<button type="button" class="quick-amount" data-fund="${a}">+${U.fmtNumber(a / 1000)}rb</button>`).join('')}
         </div>
       </div>
+      <div class="field">
+        <div class="field-label"><span>Dompet sumber</span></div>
+        <select class="select" id="fundWallet">
+          ${S.get().wallets.map((w) => `<option value="${w.id}">${w.emoji || '💳'} ${U.escapeHTML(w.name)}</option>`).join('')}
+        </select>
+      </div>
       <div class="field" style="margin-bottom:0">
         <div class="field-label"><span>Catatan</span><span class="opt">opsional</span></div>
         <input class="input" id="fundNote" maxlength="50" placeholder="Contoh: Setoran bulanan" />
@@ -996,7 +1002,8 @@ window.UI = (function () {
         save.addEventListener('click', () => {
           if (!amount) { input.classList.add('is-error'); U.toast('Jumlah belum diisi', 'error'); return; }
           if (mode === 'withdraw' && amount > goal.saved) { input.classList.add('is-error'); U.toast('Melebihi dana terkumpul', 'error'); return; }
-          S.adjustGoal(goal.id, mode === 'add' ? amount : -amount, root.querySelector('#fundNote').value.trim());
+          const walletId = root.querySelector('#fundWallet') ? root.querySelector('#fundWallet').value : null;
+          S.adjustGoal(goal.id, mode === 'add' ? amount : -amount, root.querySelector('#fundNote').value.trim(), walletId);
           U.closeSheet();
           U.haptic(18);
           U.toast(mode === 'add' ? 'Dana ditambahkan' : 'Dana ditarik', 'success', moneyAbs(amount) + ' · ' + goal.name);
